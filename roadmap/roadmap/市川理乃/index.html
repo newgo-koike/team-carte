@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>市川理乃 — Roadmap</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg:     #0e1117;
+  --surface:rgba(255,255,255,.05);
+  --border: rgba(255,255,255,.09);
+  --text:   #f1f5f9;
+  --sub:    rgba(255,255,255,.38);
+  --accent: #9f7aea;
+  --green:  #38bdf8;
+  --emerald:#34d399;
+  --red:    #f87171;
+}
+
+html[data-theme="light"] {
+  --bg:     #f5f6fa;
+  --surface:rgba(0,0,0,.03);
+  --border: rgba(0,0,0,.09);
+  --text:   #1a1d27;
+  --sub:    rgba(0,0,0,.4);
+  --accent: #6d28d9;
+  --green:  #0284c7;
+  --emerald:#059669;
+  --red:    #dc2626;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', -apple-system, 'Hiragino Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  transition: background .25s, color .25s;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 12px 28px;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(14,17,23,.9);
+  backdrop-filter: blur(20px);
+  transition: background .25s;
+}
+
+html[data-theme="light"] .topbar { background: rgba(245,246,250,.92); }
+
+.top-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+
+.back-btn {
+  font-size: 12px; color: var(--sub); cursor: pointer;
+  padding: 4px 10px; border-radius: 6px;
+  border: 1px solid var(--border); background: transparent;
+  font-family: inherit; transition: all .15s; flex-shrink: 0;
+}
+.back-btn:hover { color: var(--text); border-color: rgba(255,255,255,.2); }
+html[data-theme="light"] .back-btn:hover { border-color: rgba(0,0,0,.2); }
+
+.member-chip { display: flex; align-items: center; gap: 7px; min-width: 0; }
+.member-av {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--accent); opacity: .85;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0;
+}
+.member-name {
+  font-size: 13px; font-weight: 600; color: var(--sub);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.top-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+
+/* ライト/ダーク切替 */
+.theme-btn {
+  padding: 5px 10px; border-radius: 7px;
+  border: 1px solid var(--border); background: transparent;
+  color: var(--sub); font-size: 14px; cursor: pointer;
+  transition: all .15s;
+}
+.theme-btn:hover { color: var(--text); border-color: var(--accent); }
+
+/* 閲覧モードバナー */
+.view-banner {
+  display: none;
+  background: rgba(159,122,234,.12);
+  border: 1px solid rgba(159,122,234,.3);
+  border-radius: 7px;
+  padding: 5px 14px;
+  font-size: 11.5px; font-weight: 500;
+  color: var(--accent);
+}
+.view-banner.show { display: block; }
+
+.btn {
+  padding: 6px 14px; border-radius: 7px;
+  font-size: 12px; font-weight: 500; font-family: inherit; cursor: pointer;
+  transition: all .15s; white-space: nowrap;
+}
+.btn-ghost  { border: 1px solid var(--border); background: transparent; color: var(--sub); }
+.btn-ghost:hover { border-color: rgba(255,255,255,.2); color: var(--text); }
+.btn-accent { border: 1px solid rgba(159,122,234,.35); background: rgba(159,122,234,.12); color: var(--accent); }
+.btn-accent:hover { background: rgba(159,122,234,.25); }
+
+/* ── STAIRS ── */
+.stairs-section {
+  padding: 40px 36px 0;
+  max-width: 900px; margin: 0 auto;
+}
+
+.stairs {
+  display: flex; align-items: flex-end; gap: 6px;
+  height: 150px; position: relative;
+}
+
+.stairs::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.08) 30%, rgba(255,255,255,.08) 70%, transparent);
+}
+
+.step {
+  flex: 1; border-radius: 5px 5px 0 0;
+  cursor: pointer; position: relative;
+  transition: filter .2s, transform .15s;
+  background: rgba(255,255,255,.025);
+  border-top: 1.5px solid rgba(255,255,255,.08);
+}
+
+.step:hover { filter: brightness(1.3); transform: scaleY(1.02); transform-origin: bottom; }
+
+.step.s-done {
+  background: linear-gradient(to top, rgba(56,189,248,.0) 0%, rgba(56,189,248,.12) 60%, rgba(56,189,248,.22) 100%);
+  border-top: 1.5px solid var(--green);
+  box-shadow: 0 -6px 28px rgba(56,189,248,.18), inset 0 1px 0 rgba(56,189,248,.4);
+}
+
+.step.s-active {
+  background: linear-gradient(to top, rgba(159,122,234,.0) 0%, rgba(159,122,234,.15) 55%, rgba(159,122,234,.3) 100%);
+  border-top: 1.5px solid var(--accent);
+  box-shadow: 0 -8px 36px rgba(159,122,234,.25), inset 0 1px 0 rgba(159,122,234,.5);
+}
+
+.step-inner {
+  position: absolute; bottom: 9px; left: 0; right: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+}
+
+.step-num {
+  font-size: 10px; font-weight: 700; letter-spacing: .08em;
+  color: rgba(255,255,255,.15);
+}
+.s-done .step-num   { color: rgba(56,189,248,.5); }
+.s-active .step-num { color: rgba(159,122,234,.75); }
+
+.step-check { font-size: 10px; color: rgba(56,189,248,.6); }
+
+.step-person {
+  position: absolute; bottom: calc(100% + 12px);
+  left: 50%; transform: translateX(-50%);
+  animation: person-bob 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes person-bob {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(-7px); }
+}
+
+/* ── PHASE TABS ── */
+.phase-tabs { display: flex; gap: 6px; margin-top: 10px; }
+
+.p-tab {
+  flex: 1; text-align: center;
+  font-size: 10px; font-weight: 600; letter-spacing: .03em;
+  color: var(--sub); cursor: pointer; padding: 4px 2px; border-radius: 4px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  transition: color .2s;
+}
+.p-tab.sel  { color: var(--text); }
+.p-tab.done { color: var(--green); }
+
+/* ── PROGRESS ── */
+.gp {
+  max-width: 900px; margin: 0 auto;
+  display: flex; align-items: center; gap: 16px;
+  padding: 18px 36px 20px;
+}
+.gp-bar  { flex: 1; height: 2px; background: rgba(255,255,255,.06); border-radius: 999px; overflow: hidden; }
+.gp-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--emerald)); border-radius: 999px; transition: width .6s ease; }
+.gp-lbl  { font-size: 11px; font-weight: 500; letter-spacing: .03em; color: var(--sub); white-space: nowrap; }
+
+.divider { border: none; border-top: 1px solid var(--border); }
+
+/* ── CHECKLIST ── */
+.cl-section {
+  max-width: 700px; margin: 0 auto;
+  padding: 44px 28px 100px;
+  animation: fade-in .22s ease;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(7px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.ph-hd { display: flex; align-items: flex-end; gap: 18px; margin-bottom: 32px; }
+
+.ph-num {
+  font-size: 72px; font-weight: 900; line-height: 1;
+  letter-spacing: -.05em;
+  background: linear-gradient(180deg, rgba(255,255,255,.1) 0%, rgba(255,255,255,.025) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; flex-shrink: 0; user-select: none;
+}
+
+.ph-right { flex: 1; padding-bottom: 5px; }
+
+.ph-title {
+  font-size: 20px; font-weight: 800;
+  letter-spacing: -.025em; line-height: 1.25;
+  color: var(--text);
+}
+
+.ph-meta { display: flex; align-items: center; gap: 12px; margin-top: 9px; }
+.ph-bar  { flex: 1; height: 1.5px; background: rgba(255,255,255,.07); border-radius: 999px; overflow: hidden; }
+.ph-fill { height: 100%; border-radius: 999px; transition: width .4s ease; }
+.ph-fill.c-done   { background: var(--green); }
+.ph-fill.c-active { background: linear-gradient(90deg, var(--accent), var(--emerald)); }
+.ph-fill.c-todo   { background: rgba(255,255,255,.15); }
+.ph-lbl { font-size: 11px; font-weight: 500; color: var(--sub); white-space: nowrap; }
+
+/* ── ITEMS ── */
+.items { display: flex; flex-direction: column; gap: 1px; }
+
+.item {
+  border-radius: 8px; border: 1px solid transparent; overflow: hidden;
+  transition: background .14s, border-color .14s;
+}
+.item:hover { background: rgba(255,255,255,.025); border-color: var(--border); }
+.item.done  { opacity: .38; }
+.item.view-mode { cursor: default; }
+
+.item-top { display: flex; align-items: flex-start; gap: 12px; padding: 11px 12px; }
+
+/* 丸チェックボックス */
+.cb {
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,.18);
+  flex-shrink: 0; margin-top: 2px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .18s;
+}
+.view-mode .cb { cursor: default; }
+.cb:not(.view-mode .cb):hover { border-color: var(--emerald); transform: scale(1.12); }
+
+.cb.checked { background: var(--emerald); border-color: var(--emerald); animation: pop .26s ease; }
+.cb.checked::after {
+  content: ''; display: block; width: 8px; height: 5px;
+  border-left: 1.8px solid #fff; border-bottom: 1.8px solid #fff;
+  transform: rotate(-45deg) translate(1px,-1px);
+}
+
+@keyframes pop { 0%{transform:scale(1)} 45%{transform:scale(1.4)} 100%{transform:scale(1)} }
+
+.item-body { flex: 1; min-width: 0; }
+
+.item-ti {
+  font-size: 13.5px; line-height: 1.55; font-weight: 400;
+  border: none; background: transparent;
+  color: var(--text); font-family: inherit; width: 100%;
+}
+.item-ti:focus { outline: 2px solid rgba(159,122,234,.4); border-radius: 4px; padding: 0 4px; }
+.view-mode .item-ti { cursor: default; pointer-events: none; }
+
+.badges { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
+.badge { font-size: 10px; font-weight: 600; letter-spacing: .04em; padding: 2px 9px; border-radius: 999px; }
+.b-note { background: rgba(251,191,36,.08); color: #fbbf24; border: 1px solid rgba(251,191,36,.18); }
+.b-kpi  { background: rgba(52,211,153,.08); color: var(--emerald); border: 1px solid rgba(52,211,153,.18); }
+.b-date { background: rgba(255,255,255,.04); color: var(--sub); border: 1px solid var(--border); }
+
+.item-acts { display: flex; align-items: flex-start; gap: 2px; margin-top: 1px; flex-shrink: 0; }
+.exp-btn, .del-btn {
+  background: none; border: none; color: var(--sub); cursor: pointer;
+  padding: 3px 6px; border-radius: 5px; font-family: inherit; transition: all .13s;
+}
+.exp-btn { font-size: 15px; }
+.exp-btn:hover { color: var(--accent); background: rgba(159,122,234,.08); }
+.del-btn { font-size: 11px; opacity: 0; }
+.item:hover .del-btn { opacity: 1; }
+.del-btn:hover { color: var(--red); background: rgba(248,113,113,.08); }
+.view-mode .del-btn { display: none; }
+
+/* 詳細パネル */
+.item-det { display: none; padding: 0 12px 14px 44px; animation: slide-in .18s ease; }
+.item-det.open { display: block; }
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.field { margin-bottom: 10px; }
+.field:last-child { margin-bottom: 0; }
+.f-lbl { font-size: 9.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--sub); margin-bottom: 5px; }
+.f-ta, .f-in {
+  width: 100%; border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px 12px; font-size: 13px; font-family: inherit;
+  background: rgba(255,255,255,.03); color: var(--text);
+  transition: border-color .14s;
+}
+.f-ta { resize: vertical; min-height: 70px; }
+.f-ta:focus, .f-in:focus { outline: none; border-color: rgba(159,122,234,.5); }
+
+.chk-at { font-size: 11px; color: var(--emerald); margin-top: 8px; font-weight: 500; }
+
+/* 追加・削除ボタン（編集モードのみ） */
+.add-item-btn {
+  width: 100%; margin-top: 8px; padding: 11px;
+  background: rgba(255,255,255,.02);
+  border: 1px dashed rgba(255,255,255,.09); border-radius: 8px;
+  color: var(--sub); font-size: 12.5px; font-weight: 500;
+  font-family: inherit; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: all .15s;
+}
+.add-item-btn:hover { color: var(--accent); border-color: rgba(159,122,234,.35); background: rgba(159,122,234,.04); }
+.add-item-btn.hidden { display: none; }
+
+/* フェーズナビ */
+.phase-mgmt {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 32px; padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.phase-nav { margin-left: auto; display: flex; gap: 6px; }
+.nav-btn {
+  padding: 6px 14px; border-radius: 7px;
+  border: 1px solid var(--border); background: transparent;
+  color: var(--sub); font-size: 12px; font-weight: 500; font-family: inherit;
+  cursor: pointer; transition: all .15s;
+}
+.nav-btn:hover:not(:disabled) { color: var(--text); border-color: rgba(255,255,255,.18); }
+.nav-btn:disabled { opacity: .2; cursor: default; }
+
+/* フェーズ追加 */
+.add-phase-area { max-width: 700px; margin: 0 auto; padding: 0 28px 70px; }
+.add-phase-btn {
+  width: 100%; padding: 13px;
+  background: rgba(255,255,255,.018); border: 1px dashed rgba(255,255,255,.09);
+  border-radius: 10px; color: var(--sub); font-size: 12.5px; font-weight: 500;
+  font-family: inherit; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: all .15s;
+}
+.add-phase-btn:hover { color: var(--accent); border-color: rgba(159,122,234,.35); background: rgba(159,122,234,.04); }
+.add-phase-btn.hidden { display: none; }
+
+/* 共有URL表示 */
+.share-toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: rgba(52,211,153,.15); border: 1px solid rgba(52,211,153,.3);
+  border-radius: 10px; padding: 10px 20px;
+  font-size: 13px; font-weight: 500; color: var(--emerald);
+  opacity: 0; transition: opacity .3s; pointer-events: none;
+  white-space: nowrap; z-index: 999;
+}
+.share-toast.show { opacity: 1; }
+
+@media (max-width: 600px) {
+  .topbar         { padding: 10px 16px; gap: 8px; }
+  .back-btn       { display: none; }
+  .member-name    { max-width: 140px; }
+  .stairs-section { padding: 20px 14px 0; }
+  .stairs         { height: 100px; }
+  .p-tab          { font-size: 9px; letter-spacing: 0; }
+  .gp             { padding: 12px 14px 14px; }
+  .cl-section     { padding: 26px 14px 80px; }
+  .add-phase-area { padding: 0 14px 60px; }
+  .ph-hd          { gap: 12px; margin-bottom: 24px; }
+  .ph-num         { font-size: 48px; }
+  .ph-title       { font-size: 16px; }
+  .item-top       { padding: 10px 10px; gap: 10px; }
+  .item-det       { padding: 0 10px 12px 40px; }
+  .phase-mgmt     { flex-wrap: wrap; }
+  .nav-btn        { padding: 6px 12px; font-size: 11px; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="top-left">
+    <button class="back-btn" onclick="history.back()">← 戻る</button>
+    <div class="member-chip">
+      <div class="member-av" id="member-av"></div>
+      <span class="member-name">市川理乃</span>
+    </div>
+  </div>
+  <div class="top-right">
+    <div class="view-banner" id="view-banner">👁 閲覧モード（共有リンク）</div>
+    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">☀️</button>
+    <button class="btn btn-accent" id="share-btn" onclick="shareProgress()">進捗を共有</button>
+  </div>
+</div>
+
+<div class="stairs-section">
+  <div class="stairs" id="stairs"></div>
+  <div class="phase-tabs" id="phase-tabs"></div>
+</div>
+
+<div class="gp">
+  <div class="gp-bar"><div class="gp-fill" id="gp-fill" style="width:0%"></div></div>
+  <div class="gp-lbl" id="gp-lbl">0 / 0</div>
+</div>
+
+<hr class="divider">
+
+<div id="cl-wrap"></div>
+
+<div class="add-phase-area" id="add-phase-area">
+  <button class="add-phase-btn" id="add-phase-btn" onclick="addPhase()">＋ フェーズを追加</button>
+</div>
+
+<div class="share-toast" id="share-toast">✓ URLをコピーしました</div>
+
+<script>
+// ══ 埋め込みデータ ══════════════════════
+const MEMBER_NAME  = '市川理乃';
+const BASE_PHASES  = [{"id": "ph1", "title": "ビジョン・軸を固める", "items": [{"id": "i11", "title": "届けたい未来（ビジョン）を言語化する", "note": "", "kpi": ""}, {"id": "i12", "title": "ターゲット像「誰の・どんな悩みを・どう解くか」を決める", "note": "", "kpi": ""}, {"id": "i13", "title": "自分の強み・差別化ポイントを書き出す", "note": "", "kpi": ""}, {"id": "i14", "title": "コアバリュー（3〜5つ）を言葉にする", "note": "", "kpi": ""}, {"id": "i15", "title": "サービス名・キャッチコピーを仮決めする", "note": "", "kpi": ""}]}, {"id": "ph2", "title": "サービスを設計する", "items": [{"id": "i21", "title": "サービスメニューの骨格（期間・回数・内容）を決める", "note": "", "kpi": ""}, {"id": "i22", "title": "料金体系（単発 / 継続 / パッケージ）を設定する", "note": "", "kpi": ""}, {"id": "i23", "title": "セッション設計書（流れ・主要質問リスト）を作る", "note": "", "kpi": ""}, {"id": "i24", "title": "契約書・利用規約・キャンセルポリシーを整備する", "note": "", "kpi": ""}, {"id": "i25", "title": "決済手段（振込 / Stripe / PayPay等）を準備する", "note": "", "kpi": ""}]}, {"id": "ph3", "title": "発信・集客を動かす", "items": [{"id": "i31", "title": "SNS発信の方針（テーマ・頻度・トーン）を決める", "note": "", "kpi": ""}, {"id": "i32", "title": "プロフィールページ（note / HP / LINE公式）を作る", "note": "", "kpi": ""}, {"id": "i33", "title": "体験セッション（無料 or 特別価格）の仕組みを作る", "note": "", "kpi": ""}, {"id": "i34", "title": "既存の人脈に声がけ・紹介依頼をする", "note": "", "kpi": ""}, {"id": "i35", "title": "体験セッションを10件こなして課題をメモする", "note": "", "kpi": ""}]}, {"id": "ph4", "title": "実績・信頼を積む", "items": [{"id": "i41", "title": "モニタークライアント3名と継続契約を結ぶ", "note": "", "kpi": ""}, {"id": "i42", "title": "セッション後に推薦コメント・感想をもらう", "note": "", "kpi": ""}, {"id": "i43", "title": "ケーススタディ（成果事例）を1本書いて公開する", "note": "", "kpi": ""}, {"id": "i44", "title": "月次KPI（売上・セッション数・問合せ数）を計測する", "note": "", "kpi": ""}, {"id": "i45", "title": "初月の売上目標を達成する", "note": "", "kpi": "目標額: "}]}, {"id": "ph5", "title": "仕組み化・拡大へ", "items": [{"id": "i51", "title": "月商30万円を3ヶ月連続で安定させる", "note": "", "kpi": ""}, {"id": "i52", "title": "グループセッション or 講座を設計・販売する", "note": "", "kpi": ""}, {"id": "i53", "title": "パートナー・紹介ルートを2〜3本作る", "note": "", "kpi": ""}, {"id": "i54", "title": "クライアント管理・フォロー自動化フローを整備する", "note": "", "kpi": ""}, {"id": "i55", "title": "次のステージ（法人化・スタッフ採用・新サービス）を構想する", "note": "", "kpi": ""}]}];
+
+// ══ STATE ══════════════════════════════
+const LSKEY = 'roadmap-' + MEMBER_NAME;
+
+// URLハッシュに共有データがあれば閲覧モード
+const hashData = (() => {
+  try {
+    const h = location.hash.replace('#s=', '');
+    if (h && h !== location.hash) return JSON.parse(atob(h));
+  } catch {}
+  return null;
+})();
+
+const IS_VIEW = !!hashData;
+
+// チェック状態はlocalStorageに保存
+function loadChecks() {
+  try { return JSON.parse(localStorage.getItem(LSKEY) || '{}'); }
+  catch { return {}; }
+}
+
+function saveChecks(checks) {
+  if (!IS_VIEW) localStorage.setItem(LSKEY, JSON.stringify(checks));
+}
+
+// 現在のフェーズデータ（閲覧モードは共有データ, 通常はベース+checks）
+function buildState() {
+  if (IS_VIEW) return hashData.phases;
+  const checks = loadChecks();
+  return BASE_PHASES.map(ph => ({
+    ...ph,
+    items: ph.items.map(item => ({
+      ...item,
+      checked: !!(checks[item.id]?.checked),
+      at:      checks[item.id]?.at || null,
+    }))
+  }));
+}
+
+let phases = buildState();
+
+function pState(ph) {
+  const d = ph.items.filter(i => i.checked).length, t = ph.items.length;
+  if (!t || !d) return 'todo'; if (d === t) return 'done'; return 'active';
+}
+
+let selIdx = (() => {
+  const i = phases.findIndex(p => pState(p) !== 'done');
+  return i === -1 ? phases.length - 1 : i;
+})();
+
+function uid() { return 'x' + Date.now() + Math.random().toString(36).slice(2,5); }
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ── アバター文字 ──
+document.getElementById('member-av').textContent = MEMBER_NAME.charAt(0);
+
+// 閲覧モード表示
+if (IS_VIEW) {
+  document.getElementById('view-banner').classList.add('show');
+  document.getElementById('share-btn').style.display = 'none';
+}
+
+// ══ STAIRS ═════════════════════════════
+function buildStairs() {
+  const el   = document.getElementById('stairs');
+  const tabs = document.getElementById('phase-tabs');
+  el.innerHTML = ''; tabs.innerHTML = '';
+  const n = phases.length; if (!n) return;
+  const states = phases.map(pState);
+
+  const personSVG = `<svg width="22" height="28" viewBox="0 0 22 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="11" cy="7" r="6" fill="white" opacity=".92"/>
+    <path d="M2 27c0-4.97 4.03-9 9-9s9 4.03 9 9" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity=".85"/>
+  </svg>`;
+
+  phases.forEach((ph, i) => {
+    const h     = Math.round(150 * (i + 1) / n);
+    const st    = states[i];
+    const isSel = i === selIdx;
+
+    const step = document.createElement('div');
+    step.className = `step${st==='done'?' s-done': isSel?' s-active':''}`;
+    step.style.height = h + 'px';
+    step.title = ph.title;
+    step.onclick = () => selectPhase(i);
+
+    if (isSel) {
+      const p = document.createElement('div');
+      p.className = 'step-person'; p.innerHTML = personSVG;
+      step.appendChild(p);
+    }
+
+    const inner = document.createElement('div');
+    inner.className = 'step-inner';
+    if (st === 'done' && h > 30) {
+      const chk = document.createElement('span');
+      chk.className = 'step-check'; chk.textContent = '✓';
+      inner.appendChild(chk);
+    }
+    if (h > 24) {
+      const num = document.createElement('span');
+      num.className = 'step-num'; num.textContent = String(i+1).padStart(2,'0');
+      inner.appendChild(num);
+    }
+    step.appendChild(inner);
+    el.appendChild(step);
+
+    const tab = document.createElement('div');
+    tab.className = `p-tab${isSel?' sel':''}${st==='done'?' done':''}`;
+    tab.textContent = ph.title; tab.title = ph.title;
+    tab.onclick = () => selectPhase(i);
+    tabs.appendChild(tab);
+  });
+}
+
+// ══ RENDER ═════════════════════════════
+function render() {
+  const all  = phases.reduce((n,p) => n + p.items.length, 0);
+  const done = phases.reduce((n,p) => n + p.items.filter(i => i.checked).length, 0);
+  const pct  = all === 0 ? 0 : Math.round(done / all * 100);
+  document.getElementById('gp-fill').style.width = pct + '%';
+  document.getElementById('gp-lbl').textContent  = `${done} / ${all}  (${pct}%)`;
+
+  buildStairs();
+  renderCL();
+
+  // 閲覧モードは追加ボタン非表示
+  if (IS_VIEW) {
+    document.getElementById('add-phase-btn').classList.add('hidden');
+  }
+}
+
+function renderCL() {
+  const wrap = document.getElementById('cl-wrap');
+  if (!phases.length) { wrap.innerHTML = ''; return; }
+  selIdx = Math.max(0, Math.min(selIdx, phases.length - 1));
+
+  const ph    = phases[selIdx];
+  const st    = pState(ph);
+  const pDone = ph.items.filter(i => i.checked).length;
+  const pTot  = ph.items.length;
+  const pPct  = pTot === 0 ? 0 : Math.round(pDone / pTot * 100);
+  const fillC = st==='done'?'c-done': st==='active'?'c-active':'c-todo';
+  const vCls  = IS_VIEW ? ' view-mode' : '';
+
+  const items = ph.items.map(item => {
+    const hasNote = item.note && item.note.trim();
+    const hasKpi  = item.kpi  && item.kpi.trim();
+    const dateStr = item.at ? new Date(item.at).toLocaleDateString('ja-JP') : '';
+    const editAttr = IS_VIEW ? 'readonly' : '';
+    return `
+<div class="item${item.checked?' done':''}${vCls}" id="row-${item.id}">
+  <div class="item-top">
+    <div class="cb${item.checked?' checked':''}" onclick="${IS_VIEW?'':` toggleItem('${ph.id}','${item.id}')`}"></div>
+    <div class="item-body">
+      <input class="item-ti" value="${esc(item.title)}" ${editAttr}
+        ${IS_VIEW?'':'onchange="setItemTitle(\''+ph.id+'\',\''+item.id+'\',this.value)"'}>
+      <div class="badges">
+        ${hasNote?'<span class="badge b-note">memo</span>':''}
+        ${hasKpi?`<span class="badge b-kpi">${esc(item.kpi)}</span>`:''}
+        ${item.checked&&dateStr?`<span class="badge b-date">✓ ${dateStr}</span>`:''}
+      </div>
+    </div>
+    <div class="item-acts">
+      <button class="exp-btn" onclick="toggleDet('${item.id}')">⋯</button>
+      ${IS_VIEW?'':'<button class="del-btn" onclick="delItem(\''+ph.id+'\',\''+item.id+'\')">✕</button>'}
+    </div>
+  </div>
+  <div class="item-det" id="det-${item.id}">
+    <div class="field">
+      <div class="f-lbl">メモ / ビジョン / 決めた内容</div>
+      <textarea class="f-ta" placeholder="考えたこと、決断の理由、参考URLなど..."
+        ${IS_VIEW?'readonly':'onchange="setItemNote(\''+ph.id+'\',\''+item.id+'\',this.value)"'}
+      >${esc(item.note)}</textarea>
+    </div>
+    <div class="field">
+      <div class="f-lbl">数字 / KPI / 目標値</div>
+      <input class="f-in" type="text" placeholder="例: 月商30万円 / 3名獲得"
+        value="${esc(item.kpi)}"
+        ${IS_VIEW?'readonly':'onchange="setItemKpi(\''+ph.id+'\',\''+item.id+'\',this.value)"'}>
+    </div>
+    ${item.checked&&item.at?`<div class="chk-at">✅ ${new Date(item.at).toLocaleString('ja-JP')} に完了</div>`:''}
+  </div>
+</div>`;
+  }).join('');
+
+  wrap.innerHTML = `
+<div class="cl-section">
+  <div class="ph-hd">
+    <div class="ph-num">${String(selIdx+1).padStart(2,'0')}</div>
+    <div class="ph-right">
+      <div class="ph-title">${esc(ph.title)}</div>
+      <div class="ph-meta">
+        <div class="ph-bar"><div class="ph-fill ${fillC}" style="width:${pPct}%"></div></div>
+        <div class="ph-lbl">${pDone} / ${pTot} 完了</div>
+      </div>
+    </div>
+  </div>
+  <div class="items">${items}</div>
+  ${IS_VIEW?'':'<button class="add-item-btn" onclick="addItem(\''+ph.id+'\')">＋ 項目を追加</button>'}
+  <div class="phase-mgmt">
+    <div class="phase-nav">
+      <button class="nav-btn" onclick="selectPhase(${selIdx-1})" ${selIdx===0?'disabled':''}>← Prev</button>
+      <button class="nav-btn" onclick="selectPhase(${selIdx+1})" ${selIdx===phases.length-1?'disabled':''}>Next →</button>
+    </div>
+  </div>
+</div>`;
+}
+
+// ══ INTERACTIONS ═══════════════════════
+function selectPhase(idx) {
+  selIdx = Math.max(0, Math.min(idx, phases.length-1));
+  render();
+  document.querySelector('.cl-section')?.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function toggleItem(pid, iid) {
+  if (IS_VIEW) return;
+  const ph   = phases.find(p => p.id === pid);
+  const item = ph?.items.find(i => i.id === iid);
+  if (!item) return;
+  item.checked = !item.checked;
+  item.at = item.checked ? new Date().toISOString() : null;
+
+  // localStorageにチェック状態を保存
+  const checks = loadChecks();
+  if (item.checked) {
+    checks[iid] = { checked: true, at: item.at };
+  } else {
+    delete checks[iid];
+  }
+  saveChecks(checks);
+  render();
+  requestAnimationFrame(() => document.getElementById('det-'+iid)?.classList.add('open'));
+}
+
+function toggleDet(iid) { document.getElementById('det-'+iid)?.classList.toggle('open'); }
+
+function setItemTitle(pid, iid, v) {
+  const item = phases.find(p=>p.id===pid)?.items.find(i=>i.id===iid);
+  if (item) { item.title = v; }
+}
+function setItemNote(pid, iid, v) {
+  const item = phases.find(p=>p.id===pid)?.items.find(i=>i.id===iid);
+  if (item) { item.note = v; }
+}
+function setItemKpi(pid, iid, v) {
+  const item = phases.find(p=>p.id===pid)?.items.find(i=>i.id===iid);
+  if (item) { item.kpi = v; }
+}
+
+function addPhase() {
+  if (IS_VIEW) return;
+  phases.push({ id:uid(), title:'新しいフェーズ',
+    items:[{id:uid(),title:'最初の項目',checked:false,at:null,note:'',kpi:''}] });
+  selIdx = phases.length-1; render();
+}
+
+function addItem(pid) {
+  if (IS_VIEW) return;
+  const ph = phases.find(p=>p.id===pid);
+  if (ph) { ph.items.push({id:uid(),title:'新しい項目',checked:false,at:null,note:'',kpi:''}); render(); }
+}
+
+function delItem(pid, iid) {
+  if (IS_VIEW) return;
+  const ph = phases.find(p=>p.id===pid);
+  if (ph) {
+    ph.items = ph.items.filter(i=>i.id!==iid);
+    const checks = loadChecks(); delete checks[iid]; saveChecks(checks);
+    renderCL();
+  }
+}
+
+// ══ 進捗共有 ════════════════════════════
+function shareProgress() {
+  const data = { phases: phases };
+  const b64  = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+  const url  = location.origin + location.pathname + '#s=' + b64;
+  navigator.clipboard.writeText(url).then(() => {
+    const t = document.getElementById('share-toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }).catch(() => {
+    prompt('このURLをコピーしてください:', url);
+  });
+}
+
+// ══ テーマ ═════════════════════════════
+function toggleTheme() {
+  const isLight = document.documentElement.dataset.theme === 'light';
+  const next = isLight ? 'dark' : 'light';
+  document.documentElement.dataset.theme = next === 'dark' ? '' : 'light';
+  document.getElementById('theme-btn').textContent = next === 'light' ? '🌙' : '☀️';
+  localStorage.setItem('roadmap-theme', next);
+}
+(function initTheme() {
+  const saved = localStorage.getItem('roadmap-theme');
+  if (saved === 'light') {
+    document.documentElement.dataset.theme = 'light';
+    document.getElementById('theme-btn').textContent = '🌙';
+  }
+})();
+
+// ══ INIT ═══════════════════════════════
+render();
+</script>
+</body>
+</html>
